@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", "Segoe UI", sans-serif;
+  --font-sans: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --color-ink: #1b1d26;
+  --color-muted: #5f6475;
+  --color-paper: #edeef3;
+  --color-line: #d5d8e2;
+  --color-velvet: #a3173d;
+  --color-velvet-dark: #7f1030;
+  --color-amber-hold: #f0b445;
+  --color-ok: #14795f;
+}
+
+html { scroll-padding-top: 4rem; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); line-height: 1.55; }
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.12; }
+:focus-visible { outline: 3px solid var(--color-velvet); outline-offset: 2px; }
+
+@layer components {
+  .btn, .btn-primary, .btn-dark, .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply bg-velvet text-white hover:bg-velvet-dark; }
+  .btn-dark { @apply bg-ink text-white hover:bg-black; }
+  .btn-ghost { @apply border border-line bg-white text-ink hover:border-ink; }
+  .btn-sm { @apply px-3 py-1.5 text-xs; }
+  .input { @apply w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm outline-none focus:border-velvet; }
+  .label { @apply mb-1 block text-sm font-medium; }
+  .badge { @apply inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+  .card { @apply rounded-xl border border-line bg-white; }
+}
+
+/* Vé: hai nửa khuyết tròn ở mép, đường đục lỗ ở giữa — dùng cho tóm tắt đặt vé, vé điện tử, lịch sử */
+.ticket {
+  --notch: 11px;
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  -webkit-mask: radial-gradient(circle var(--notch) at 0 var(--cut, 70%), #0000 98%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle var(--notch) at 100% var(--cut, 70%), #0000 98%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle var(--notch) at 0 var(--cut, 70%), #0000 98%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle var(--notch) at 100% var(--cut, 70%), #0000 98%, #000) right / 51% 100% no-repeat;
+  filter: drop-shadow(0 1px 0 var(--color-line));
+}
+.ticket-perf { border-top: 2px dashed var(--color-line); }
+
+.seat { width: 2.1rem; height: 2.1rem; border-radius: 0.5rem 0.5rem 0.25rem 0.25rem; font-size: 0.68rem; font-weight: 600; border: 1.5px solid var(--color-line); background: #fff; cursor: pointer; transition: transform .1s; }
+.seat:hover:not(:disabled) { border-color: var(--color-ink); transform: translateY(-1px); }
+.seat-vip { border-color: #b9a2ab; }
+.seat-selected { background: var(--color-velvet); border-color: var(--color-velvet); color: #fff; }
+.seat-held { background: var(--color-amber-hold); border-color: var(--color-amber-hold); cursor: not-allowed; }
+.seat-booked { background: repeating-linear-gradient(45deg, #cfd2dc, #cfd2dc 4px, #dfe1e9 4px, #dfe1e9 8px); border-color: #cfd2dc; color: #8b8fa0; cursor: not-allowed; }
+.screen-arc { height: 14px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: linear-gradient(#1b1d26, #1b1d2600); opacity: .85; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
